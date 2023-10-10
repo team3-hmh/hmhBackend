@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.place.controller;
 
-public class TestController {
+public class PlaceController {
 }

@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.place.dto;
 
-public class TestDto {
+public class PlaceDto {
 }
