@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.posting.dto;
 
-public class TestDto {
+public class PostingDto {
 }

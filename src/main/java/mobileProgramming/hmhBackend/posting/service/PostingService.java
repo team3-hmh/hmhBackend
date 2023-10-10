@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.posting.service;
 
-public class TestService {
+public class PostingService {
 }

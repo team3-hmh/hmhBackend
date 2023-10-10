@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.posting.domain;
 
-public class TestDomain {
+public class PostingDomain {
 }

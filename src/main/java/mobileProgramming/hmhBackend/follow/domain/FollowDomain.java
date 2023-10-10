@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.follow.domain;
 
-public class TestDomain {
+public class FollowDomain {
 }
