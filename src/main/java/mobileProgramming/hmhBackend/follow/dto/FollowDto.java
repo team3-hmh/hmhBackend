@@ -1,4 +1,4 @@
 package mobileProgramming.hmhBackend.follow.dto;
 
-public class TestDto {
+public class FollowDto {
 }
