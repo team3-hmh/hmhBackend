@@ -1,11 +1,14 @@
 package mobileProgramming.hmhBackend.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mobileProgramming.hmhBackend.follow.domain.Follow;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Builder
@@ -14,7 +17,7 @@ import javax.persistence.*;
 @Entity
 public class User {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
     @Column(nullable = false)
@@ -24,17 +27,10 @@ public class User {
     @Column(nullable = false)
     private String pw;
 
-    public Long getId() { return id; }
+    @OneToMany(mappedBy = "user")
+    private List<Follow> follows;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getBirth() {
-        return birth;
-    }
-
-    public String getPw() {
-        return pw;
+    public void addFollow(Follow follow) {
+        follows.add(follow);
     }
 }
