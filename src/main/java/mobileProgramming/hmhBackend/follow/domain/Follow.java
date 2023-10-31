@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import mobileProgramming.hmhBackend.user.domain.User;
+import mobileProgramming.hmhBackend.join.entity.Member;
 
 import javax.persistence.*;
 
@@ -18,8 +18,8 @@ public class Follow {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "id")
-    private User user;
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private Member member;
 
     @Id
     private Long followingId;

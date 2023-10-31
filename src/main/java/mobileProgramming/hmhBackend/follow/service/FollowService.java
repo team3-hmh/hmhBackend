@@ -1,35 +1,30 @@
 package mobileProgramming.hmhBackend.follow.service;
 
 import mobileProgramming.hmhBackend.follow.domain.Follow;
-import mobileProgramming.hmhBackend.follow.domain.FollowKey;
 import mobileProgramming.hmhBackend.follow.domain.FollowRepository;
 import mobileProgramming.hmhBackend.follow.dto.FollowDto;
-import mobileProgramming.hmhBackend.user.domain.User;
-import mobileProgramming.hmhBackend.user.domain.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import mobileProgramming.hmhBackend.join.entity.Member;
+import mobileProgramming.hmhBackend.join.entity.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class FollowService {
 
-    @Autowired
     FollowRepository followRepository;
-    @Autowired
-    UserRepository userRepository;
+    MemberRepository memberRepository;
 
 
-    public List<User> findFollowingList(Long id) {
+    public List<Member> findFollowingList(Long id) {
 
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent() && !optionalUser.get().getFollows().isEmpty()) {
-            List<User> followingList = new ArrayList<>();
-            for (Follow f : optionalUser.get().getFollows()) {
-                followingList.add(userRepository.findById(f.getFollowingId()).get());
+        Optional<Member> optionalMember = memberRepository.findById(id);
+        if (optionalMember.isPresent() && !optionalMember.get().getFollows().isEmpty()) {
+            List<Member> followingList = new ArrayList<>();
+            for (Follow f : optionalMember.get().getFollows()) {
+                followingList.add(memberRepository.findById(f.getFollowingId()).get());
             }
             return followingList;
         } else {
@@ -39,31 +34,32 @@ public class FollowService {
 
 
     public void following (FollowDto followDto){
-        Optional<User> optionalUser = userRepository.findById(followDto.getId());
-        Optional<User> followingUser = userRepository.findById(followDto.getFollowingId());
-        if (optionalUser.isPresent() && followingUser.isPresent()) {
-            User user = optionalUser.get();
+        Optional<Member> optionalMember = memberRepository.findById(followDto.getId());
+        Optional<Member> followingMember = memberRepository.findById(followDto.getFollowingId());
+        if (optionalMember.isPresent() && followingMember.isPresent()) {
+            Member member = optionalMember.get();
             Follow newFollow = Follow.builder()
-                    .user(user)
+                    .member(member)
                     .followingId(followDto.getFollowingId())
                     .build();
             followRepository.save(newFollow);
-            user.addFollow(newFollow);
+            member.addFollow(newFollow);
         } else {
             throw new RuntimeException();
         }
     }
 
     public void unfollow (FollowDto followDto){
-        Optional<User> optionalUser = userRepository.findById(followDto.getId());
-        Optional<User> unfollowingUser = userRepository.findById(followDto.getFollowingId());
-        if (optionalUser.isPresent() && unfollowingUser.isPresent()) {
-            User user = optionalUser.get();
-            Follow unfollowingData = Follow.builder()
-                    .user(user)
+        Optional<Member> optionalMember = memberRepository.findById(followDto.getId());
+        Optional<Member> followingMember = memberRepository.findById(followDto.getFollowingId());
+        if (optionalMember.isPresent() && followingMember.isPresent()) {
+            Member member = optionalMember.get();
+            Follow newFollow = Follow.builder()
+                    .member(member)
                     .followingId(followDto.getFollowingId())
                     .build();
-            followRepository.delete(unfollowingData);
+            followRepository.delete(newFollow);
+            member.addFollow(newFollow);
         } else {
             throw new RuntimeException();
         }
