@@ -2,6 +2,7 @@ package mobileProgramming.hmhBackend.join.entity;
 
 import lombok.*;
 import mobileProgramming.hmhBackend.follow.domain.Follow;
+import mobileProgramming.hmhBackend.place.domain.Place;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor // 모든 필드를 매개변수로 받는 생성자를 자동으로 생성
 @Builder // 빌더 패턴을 제공하여 객체를 생성할 때 명확한 구문을 제공
 @Entity // JPA 엔티티클래스임을 나타낸다
-public class Member  extends BaseTimeEntity{
+public class Member extends BaseTimeEntity{
 
 
     @Id
@@ -48,7 +49,12 @@ public class Member  extends BaseTimeEntity{
     @OneToMany(mappedBy = "member")
     private List<Follow> follows;
 
-    public void addFollow(Follow follow) {
-        follows.add(follow);
-    }
+    @OneToMany(mappedBy = "member")
+    private List<Place> places;
+
+    public void addFollow(Follow follow) { follows.add(follow); }
+    public void delFollow(Follow follow) { follows.remove(follow); }
+
+    public void addPlace(Place place) { places.add(place); }
+    public void delPlace(Place place) { places.remove(place); }
 }

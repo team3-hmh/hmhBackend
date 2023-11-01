@@ -62,7 +62,7 @@ public class FollowService {
                     .followingId(followDto.getFollowingId())
                     .build();
             followRepository.delete(newFollow);
-            member.addFollow(newFollow);
+            member.delFollow(newFollow);
         } else {
             throw new RuntimeException();
         }
