@@ -11,6 +11,7 @@ public class TodoListDto {
 
     private Long id;
     private Long member;
+    private Long place;
     private String content;
     private String date;
 

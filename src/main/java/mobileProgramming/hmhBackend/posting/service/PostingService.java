@@ -3,6 +3,8 @@ package mobileProgramming.hmhBackend.posting.service;
 import lombok.RequiredArgsConstructor;
 import mobileProgramming.hmhBackend.join.entity.Member;
 import mobileProgramming.hmhBackend.join.entity.MemberRepository;
+import mobileProgramming.hmhBackend.place.domain.Place;
+import mobileProgramming.hmhBackend.place.domain.PlaceRepository;
 import mobileProgramming.hmhBackend.posting.domain.Posting;
 import mobileProgramming.hmhBackend.posting.domain.PostingRepository;
 import mobileProgramming.hmhBackend.posting.dto.PostingDto;
@@ -17,6 +19,7 @@ public class PostingService {
 
     private final PostingRepository postingRepository;
     private final MemberRepository memberRepository;
+    private final PlaceRepository placeRepository;
 
     public List<Posting> findAll() {
         return postingRepository.findAll();
@@ -33,23 +36,19 @@ public class PostingService {
 
     public void savePosting(PostingDto postingDto) {
         Optional<Member> optionalMember = memberRepository.findById(postingDto.getMember());
-        if (optionalMember.isPresent()) {
-            Posting posting = Posting.builder()
+        Optional<Place> optionalPlace = placeRepository.findById(postingDto.getPlace());
+
+        Posting posting = Posting.builder()
                     .id(postingDto.getId())
                     .member(optionalMember.get())
+                    .place(optionalPlace.get())
                     .content(postingDto.getContent())
                     .rating(postingDto.getRating())
                     .build();
-            postingRepository.save(posting);
-            optionalMember.get().addPosting(posting);
-        } else {
-            Posting posting = Posting.builder()
-                    .id(postingDto.getId())
-                    .content(postingDto.getContent())
-                    .rating(postingDto.getRating())
-                    .build();
-            postingRepository.save(posting);
-        }
+        postingRepository.save(posting);
+
+        optionalMember.ifPresent(member -> member.addPosting(posting));
+        optionalPlace.ifPresent(place -> place.addPosting(posting));
     }
 
     public void deletePosting(PostingDto postingDto) {

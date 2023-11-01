@@ -11,6 +11,7 @@ public class PostingDto {
 
     private Long id;
     private Long member;
+    private Long place;
     private String content;
     private Long rating;
 

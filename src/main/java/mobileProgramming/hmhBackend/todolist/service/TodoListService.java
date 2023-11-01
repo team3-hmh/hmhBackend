@@ -3,6 +3,8 @@ package mobileProgramming.hmhBackend.todolist.service;
 import lombok.RequiredArgsConstructor;
 import mobileProgramming.hmhBackend.join.entity.Member;
 import mobileProgramming.hmhBackend.join.entity.MemberRepository;
+import mobileProgramming.hmhBackend.place.domain.Place;
+import mobileProgramming.hmhBackend.place.domain.PlaceRepository;
 import mobileProgramming.hmhBackend.todolist.domain.TodoList;
 import mobileProgramming.hmhBackend.todolist.domain.TodoListRepository;
 import mobileProgramming.hmhBackend.todolist.dto.TodoListDto;
@@ -17,6 +19,7 @@ public class TodoListService {
 
     private final TodoListRepository todoListRepository;
     private final MemberRepository memberRepository;
+    private final PlaceRepository placeRepository;
 
     public List<TodoList> getTodos(Long member) {
         Optional<Member> optionalMember = memberRepository.findById(member);
@@ -29,18 +32,19 @@ public class TodoListService {
 
     public void saveTodo(TodoListDto todoListDto) {
         Optional<Member> optionalMember = memberRepository.findById(todoListDto.getMember());
-        if (optionalMember.isPresent()) {
-            TodoList todoList = TodoList.builder()
-                    .id(todoListDto.getId())
-                    .member(optionalMember.get())
-                    .content(todoListDto.getContent())
-                    .date(todoListDto.getDate())
-                    .build();
-            todoListRepository.save(todoList);
-            optionalMember.get().addTodoList(todoList);
-        } else {
-            throw new RuntimeException();
-        }
+        Optional<Place> optionalPlace = placeRepository.findById(todoListDto.getPlace());
+
+        TodoList todoList = TodoList.builder()
+                .id(todoListDto.getId())
+                .member(optionalMember.get())
+                .place(optionalPlace.get())
+                .content(todoListDto.getContent())
+                .date(todoListDto.getDate())
+                .build();
+        todoListRepository.save(todoList);
+
+        optionalMember.ifPresent(member -> member.addTodoList(todoList));
+        optionalPlace.ifPresent(place -> place.addTodo(todoList));
     }
 
     public void deleteTodo(TodoListDto todoListDto) {
