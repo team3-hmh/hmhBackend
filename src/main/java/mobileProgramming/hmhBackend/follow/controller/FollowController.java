@@ -1,5 +1,6 @@
 package mobileProgramming.hmhBackend.follow.controller;
 
+import lombok.RequiredArgsConstructor;
 import mobileProgramming.hmhBackend.follow.dto.FollowDto;
 import mobileProgramming.hmhBackend.follow.service.FollowService;
 import mobileProgramming.hmhBackend.join.entity.Member;
@@ -8,11 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RequestMapping("/member")
 @RestController
 public class FollowController {
 
-    FollowService followService;
+    private final FollowService followService;
 
     /**
      * Select following user list

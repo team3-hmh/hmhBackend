@@ -1,21 +1,24 @@
 package mobileProgramming.hmhBackend.follow.service;
 
+import lombok.RequiredArgsConstructor;
 import mobileProgramming.hmhBackend.follow.domain.Follow;
 import mobileProgramming.hmhBackend.follow.domain.FollowRepository;
 import mobileProgramming.hmhBackend.follow.dto.FollowDto;
 import mobileProgramming.hmhBackend.join.entity.Member;
 import mobileProgramming.hmhBackend.join.entity.MemberRepository;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class FollowService {
 
-    FollowRepository followRepository;
-    MemberRepository memberRepository;
+    private final FollowRepository followRepository;
+    private final MemberRepository memberRepository;
 
 
     public List<Member> findFollowingList(Long id) {
