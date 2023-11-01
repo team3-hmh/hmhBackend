@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import mobileProgramming.hmhBackend.join.entity.Member;
 import mobileProgramming.hmhBackend.join.entity.MemberRepository;
 import mobileProgramming.hmhBackend.place.domain.Place;
-import mobileProgramming.hmhBackend.place.domain.PlaceKey;
 import mobileProgramming.hmhBackend.place.domain.PlaceRepository;
 import mobileProgramming.hmhBackend.place.dto.PlaceDto;
 import org.springframework.stereotype.Service;
@@ -45,8 +44,7 @@ public class PlaceService {
     }
 
     public void deletePlace(PlaceDto placeDto) {
-        PlaceKey key = new PlaceKey(placeDto.getId(), placeDto.getMember());
-        Optional<Place> deletingPlace = placeRepository.findById(key);
+        Optional<Place> deletingPlace = placeRepository.findById(placeDto.getId());
         if (deletingPlace.isPresent()) {
             Place place = deletingPlace.get();
             place.getMember().delPlace(place);

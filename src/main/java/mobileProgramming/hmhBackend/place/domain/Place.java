@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mobileProgramming.hmhBackend.join.entity.Member;
-import mobileProgramming.hmhBackend.place.dto.PlaceDto;
 
 import javax.persistence.*;
 
@@ -15,16 +14,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@IdClass(PlaceKey.class)
 public class Place {
 
     @Id
     private Long id;
 
-    @Id
+
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "member", referencedColumnName = "id")
+    @JoinColumn(name = "member", referencedColumnName = "id", nullable = false)
     private Member member;
 
     @Column
