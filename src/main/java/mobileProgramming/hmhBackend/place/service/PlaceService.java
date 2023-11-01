@@ -39,6 +39,8 @@ public class PlaceService {
                     .build();
             placeRepository.save(place);
             optionalMember.get().addPlace(place);
+        } else {
+            throw new RuntimeException();
         }
     }
 

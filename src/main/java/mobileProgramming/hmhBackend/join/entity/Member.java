@@ -3,6 +3,8 @@ package mobileProgramming.hmhBackend.join.entity;
 import lombok.*;
 import mobileProgramming.hmhBackend.follow.domain.Follow;
 import mobileProgramming.hmhBackend.place.domain.Place;
+import mobileProgramming.hmhBackend.posting.domain.Posting;
+import mobileProgramming.hmhBackend.todolist.domain.TodoList;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -52,9 +54,21 @@ public class Member extends BaseTimeEntity{
     @OneToMany(mappedBy = "member")
     private List<Place> places;
 
+    @OneToMany(mappedBy = "member")
+    private List<Posting> postings;
+
+    @OneToMany(mappedBy = "member")
+    private List<TodoList> todoLists;
+
     public void addFollow(Follow follow) { follows.add(follow); }
     public void delFollow(Follow follow) { follows.remove(follow); }
 
     public void addPlace(Place place) { places.add(place); }
     public void delPlace(Place place) { places.remove(place); }
+
+    public void addPosting(Posting posting) { postings.add(posting); }
+    public void delPosting(Posting posting) { postings.remove(posting); }
+
+    public void addTodoList(TodoList todoList) { todoLists.add(todoList); }
+    public void delTodoList(TodoList todoList) { todoLists.remove(todoList); }
 }
