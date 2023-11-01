@@ -28,7 +28,7 @@ public class SecurityConfig {
                                 "/swagger/**", "/swagger-ui/**", "/h2/**").permitAll()
                         .antMatchers(HttpMethod.OPTIONS).permitAll()
                         .antMatchers("/member/login", "/member/join").permitAll()
-                        .antMatchers("/member/follow").permitAll() // follow DB 접근 권한 설정, 여기에 CRUD mapping 권한 추가 -> .permitAll()
+                        .antMatchers("/member/follow/**").permitAll() // follow DB 접근 권한 설정, 여기에 CRUD mapping 권한 추가 -> .permitAll()
                         .antMatchers("/member").hasRole("USER")
                         .anyRequest().authenticated()
                 )

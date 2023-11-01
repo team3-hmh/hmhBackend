@@ -1,5 +1,6 @@
 package mobileProgramming.hmhBackend.follow.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,8 +18,9 @@ import javax.persistence.*;
 public class Follow {
 
     @Id
+    @JsonIgnore // Getmapping("/follow/{id}") 오류 해결 -> 연관관계 문제
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "id")
     private Member member;
 
     @Id
