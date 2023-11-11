@@ -36,6 +36,9 @@ public class Member extends BaseTimeEntity{
     @Column(nullable = false)
     private String password;
 
+    @Column
+    private String image;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -46,6 +49,10 @@ public class Member extends BaseTimeEntity{
     // 주어진 'passwordEncoder'를 사용하여 비밀번호를 암호화하고 해당 값을 'password' 필드에 저장.
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
+    }
+
+    public void setImage(String imageFile) {
+        this.image = imageFile;
     }
 
     @OneToMany(mappedBy = "member")

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 // 서비스 레이어
 @RequiredArgsConstructor // final 또는 @NonNull로 표시된 필드들을 가지고 생성자를 자동으로 생성
@@ -57,5 +58,15 @@ public class MemberServiceMain implements MemberService {
         roles.add(member.getRole().name());
 
         return JwtTokenProvider.createToken(member.getName(), roles);
+    }
+
+    @Override
+    public void insertImage(String imageFile, Long id) {
+        Optional<Member> optionalMember = memberRepository.findById(id);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            member.setImage(imageFile);
+            memberRepository.save(member);
+        }
     }
 }

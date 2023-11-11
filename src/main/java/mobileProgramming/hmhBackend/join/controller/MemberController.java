@@ -3,7 +3,6 @@ package mobileProgramming.hmhBackend.join.controller;
 import lombok.RequiredArgsConstructor;
 import mobileProgramming.hmhBackend.join.dto.MemberSignInRequestDto;
 import mobileProgramming.hmhBackend.join.dto.MemberSignUpRequestDto;
-import mobileProgramming.hmhBackend.join.service.MemberService;
 import mobileProgramming.hmhBackend.join.service.MemberServiceMain;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +31,10 @@ public class MemberController {
     // @Valid : 유효성 검사를 수행, @RequestBody : http 요청의 body에서 데이터를 가져옴
     // MemberSignUpRequestDto 형식의 요청 데이터를 처리하여 회원 가입 동작 수행 - request
     // memberService.signUp(request)를 호출하여 회원가입 기능 수행, 반환되는 회원의 ID를 HTTP응답으로 반환
+
+    @PostMapping("/insertImage/{id}")
+    public void insertImage(@RequestParam("imageFile") String imageFile, @PathVariable Long id) {
+        memberServiceMain.insertImage(imageFile, id);
+    }
 
 }
