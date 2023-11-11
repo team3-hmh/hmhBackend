@@ -2,6 +2,7 @@ package mobileProgramming.hmhBackend.join.service;
 
 
 import lombok.RequiredArgsConstructor;
+import mobileProgramming.hmhBackend.join.dto.MemberDto;
 import mobileProgramming.hmhBackend.join.dto.MemberSignInRequestDto;
 import mobileProgramming.hmhBackend.join.dto.MemberSignUpRequestDto;
 import mobileProgramming.hmhBackend.join.entity.Member;
@@ -67,6 +68,25 @@ public class MemberServiceMain implements MemberService {
             Member member = optionalMember.get();
             member.setImage(imageFile);
             memberRepository.save(member);
+        }
+    }
+
+    @Override
+    public MemberDto memberInfo(Long id) {
+        Optional<Member> optionalMember=memberRepository.findById(id);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            return MemberDto.builder()
+                    .id(member.getId())
+                    .email(member.getEmail())
+                    .name(member.getName())
+                    .birth(member.getBirth())
+                    .password(member.getPassword())
+                    .image(member.getImage())
+                    .role(member.getRole())
+                    .build();
+        } else {
+            throw new RuntimeException();
         }
     }
 }

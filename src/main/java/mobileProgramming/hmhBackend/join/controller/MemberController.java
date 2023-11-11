@@ -1,8 +1,10 @@
 package mobileProgramming.hmhBackend.join.controller;
 
 import lombok.RequiredArgsConstructor;
+import mobileProgramming.hmhBackend.join.dto.MemberDto;
 import mobileProgramming.hmhBackend.join.dto.MemberSignInRequestDto;
 import mobileProgramming.hmhBackend.join.dto.MemberSignUpRequestDto;
+import mobileProgramming.hmhBackend.join.entity.MemberRepository;
 import mobileProgramming.hmhBackend.join.service.MemberServiceMain;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,11 @@ public class MemberController {
     @PostMapping("/insertImage/{id}")
     public void insertImage(@RequestParam("imageFile") String imageFile, @PathVariable Long id) {
         memberServiceMain.insertImage(imageFile, id);
+    }
+
+    @GetMapping("/{id}")
+    public MemberDto memberInfo(@PathVariable Long id) {
+        return memberServiceMain.memberInfo(id);
     }
 
 }
