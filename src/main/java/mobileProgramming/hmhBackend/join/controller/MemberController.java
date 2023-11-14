@@ -39,6 +39,11 @@ public class MemberController {
         memberServiceMain.insertImage(imageFile, id);
     }
 
+    /**
+     *
+     * @param id
+     * @return MemberDto
+     */
     @GetMapping("/{id}")
     public MemberDto memberInfo(@PathVariable Long id) {
         return memberServiceMain.memberInfo(id);
