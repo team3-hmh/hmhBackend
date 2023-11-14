@@ -40,6 +40,7 @@ public class TodoListService {
                 .place(optionalPlace.get())
                 .content(todoListDto.getContent())
                 .date(todoListDto.getDate())
+                .done(todoListDto.getDone())
                 .build();
         todoListRepository.save(todoList);
 
@@ -53,6 +54,17 @@ public class TodoListService {
             TodoList todoList = optionalTodoList.get();
             todoList.getMember().delTodoList(todoList);
             todoListRepository.delete(todoList);
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    public void editDone(Long id) {
+        Optional<TodoList> optionalTodoList = todoListRepository.findById(id);
+        if (optionalTodoList.isPresent()) {
+            TodoList todoList = optionalTodoList.get();
+            todoList.setDone(!todoList.getDone());
+            todoListRepository.save(todoList);
         } else {
             throw new RuntimeException();
         }

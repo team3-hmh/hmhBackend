@@ -15,6 +15,9 @@ public class TodoListController {
 
     private final TodoListService todoListService;
 
+    @PutMapping("/todoList/{id}")
+    public void editDone(@PathVariable Long id) { todoListService.editDone(id);}
+
     @GetMapping("/todoList/{member}")
     public List<TodoList> todos(@PathVariable Long member) {
         return todoListService.getTodos(member);

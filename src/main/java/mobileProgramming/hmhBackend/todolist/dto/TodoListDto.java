@@ -14,5 +14,6 @@ public class TodoListDto {
     private Long place;
     private String content;
     private String date;
+    private Boolean done;
 
 }

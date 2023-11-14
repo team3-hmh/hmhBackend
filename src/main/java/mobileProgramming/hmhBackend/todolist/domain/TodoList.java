@@ -36,4 +36,11 @@ public class TodoList {
     @Column
     private String date;
 
+    @Column
+    private Boolean done;
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
 }
