@@ -16,5 +16,5 @@ public interface MemberService {
 
     public MemberDto memberInfo(Long id) throws Exception;
 
-    public MemberDto memberInfo(String email);
+    public Long findIdByEmail(String email) throws Exception;
 }

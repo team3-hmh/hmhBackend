@@ -91,12 +91,13 @@ public class MemberServiceMain implements MemberService {
     }
 
     @Override
-    public MemberDto memberInfo(String email) {
+    public Long findIdByEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
         if (optionalMember.isPresent()) {
-            return memberInfo(optionalMember.get().getId());
+            return optionalMember.get().getId();
         } else {
             throw new RuntimeException();
         }
     }
+
 }
