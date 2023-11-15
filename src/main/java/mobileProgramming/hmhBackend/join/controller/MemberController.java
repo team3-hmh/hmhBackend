@@ -50,6 +50,6 @@ public class MemberController {
     }
 
     @GetMapping("/email")
-    public Long findId(@RequestParam String email) { return memberServiceMain.findIdByEmail(email); }
+    public Long findId(@RequestBody MemberSignInRequestDto memberSignInRequestDto) { return memberServiceMain.findIdByEmail(memberSignInRequestDto); }
 
 }

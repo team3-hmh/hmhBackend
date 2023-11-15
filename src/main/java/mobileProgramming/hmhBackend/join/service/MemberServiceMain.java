@@ -91,8 +91,8 @@ public class MemberServiceMain implements MemberService {
     }
 
     @Override
-    public Long findIdByEmail(String email) {
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+    public Long findIdByEmail(MemberSignInRequestDto memberSignInRequestDto) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(memberSignInRequestDto.getEmail());
         if (optionalMember.isPresent()) {
             return optionalMember.get().getId();
         } else {
