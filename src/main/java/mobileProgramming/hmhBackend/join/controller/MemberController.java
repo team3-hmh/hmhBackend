@@ -35,6 +35,7 @@ public class MemberController {
     // memberService.signUp(request)를 호출하여 회원가입 기능 수행, 반환되는 회원의 ID를 HTTP응답으로 반환
 
     @PostMapping("/insertImage/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void insertImage(@RequestParam("imageFile") String imageFile, @PathVariable Long id) {
         memberServiceMain.insertImage(imageFile, id);
     }
@@ -50,6 +51,7 @@ public class MemberController {
     }
 
     @PostMapping("/email")
+    @ResponseStatus(HttpStatus.OK)
     public Long findId(@RequestBody MemberSignInRequestDto memberSignInRequestDto) { return memberServiceMain.findIdByEmail(memberSignInRequestDto); }
 
 }
