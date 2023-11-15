@@ -49,7 +49,7 @@ public class MemberController {
         return memberServiceMain.memberInfo(id);
     }
 
-    @GetMapping("/email")
+    @PostMapping("/email")
     public Long findId(@RequestBody MemberSignInRequestDto memberSignInRequestDto) { return memberServiceMain.findIdByEmail(memberSignInRequestDto); }
 
 }
