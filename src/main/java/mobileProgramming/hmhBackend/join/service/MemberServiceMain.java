@@ -73,7 +73,7 @@ public class MemberServiceMain implements MemberService {
 
     @Override
     public MemberDto memberInfo(Long id) {
-        Optional<Member> optionalMember=memberRepository.findById(id);
+        Optional<Member> optionalMember = memberRepository.findById(id);
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             return MemberDto.builder()
@@ -85,6 +85,16 @@ public class MemberServiceMain implements MemberService {
                     .image(member.getImage())
                     .role(member.getRole())
                     .build();
+        } else {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public MemberDto memberInfo(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if (optionalMember.isPresent()) {
+            return memberInfo(optionalMember.get().getId());
         } else {
             throw new RuntimeException();
         }

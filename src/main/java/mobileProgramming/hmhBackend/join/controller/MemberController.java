@@ -49,4 +49,7 @@ public class MemberController {
         return memberServiceMain.memberInfo(id);
     }
 
+    @GetMapping("/email")
+    public MemberDto memberInfo(@RequestParam String email) { return memberServiceMain.memberInfo(email); }
+
 }

@@ -15,4 +15,6 @@ public interface MemberService {
     public void insertImage(String imageFile, Long id) throws Exception;
 
     public MemberDto memberInfo(Long id) throws Exception;
+
+    public MemberDto memberInfo(String email);
 }
