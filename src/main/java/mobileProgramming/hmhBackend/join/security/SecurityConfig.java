@@ -37,8 +37,8 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
-                .cors(cors -> cors.disable())
-                .csrf(csrf -> csrf.disable())
+                .cors().disable()
+                .csrf().disable()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return httpSecurity.build();
