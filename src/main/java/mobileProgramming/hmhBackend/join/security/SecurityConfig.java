@@ -22,7 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtTokenProvider jwtTokenProvider;
     private final CorsConfig corsConfig;
 
     @Bean
@@ -46,9 +45,7 @@ public class SecurityConfig {
                 .antMatchers("/member").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(corsConfig.corsFilter())
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-                        UsernamePasswordAuthenticationFilter.class);
+                .addFilter(corsConfig.corsFilter());
 
         return httpSecurity.build();
     }
