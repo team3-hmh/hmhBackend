@@ -50,7 +50,7 @@ public class MemberController {
         return memberServiceMain.memberInfo(id);
     }
 
-    @PutMapping("/email")
+    @PostMapping("/email")
     @ResponseStatus(HttpStatus.OK)
     public Long findId(@RequestBody MemberSignInRequestDto memberSignInRequestDto) { return memberServiceMain.findIdByEmail(memberSignInRequestDto); }
 
